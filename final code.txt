@@ -1,0 +1,82 @@
+import string 
+import re
+
+
+Trump_text = open('Trump.txt', 'r') #opens the file and saves into Trump_text
+Trump_t = Trump_text.read() #saves the Trump_text data into a string
+Trump_t = re.sub('https?://[A-Za-z0-9./]+', '', Trump_t)
+Trump_t = re.sub('@[^\s]+','',Trump_t)
+Trump_t = re.sub('[#,\!./:+*?&"%;-]', '',Trump_t)
+Trump_t = re.sub('[0-9]+','',Trump_t)
+Trump_t = re.sub('Rt[A-Za-z0-9./]+','',Trump_t)
+Trump_t=" ".join(filter(lambda x:x[0]!='x', Trump_t.split()))
+masterlist = Trump_t.split(" ") #splits the text data and saves in a list
+print(masterlist)
+
+
+
+positive_file=open('positive.txt', 'r')
+pf = positive_file.read()                 #reading the positive words into a string
+positive_list = pf.split("\n")
+negative_file=open('negative.txt', 'r')
+nf = negative_file.read()                 #reading the negative words into a string
+neglist = nf.split("\n")
+stopwords_file=open('stopwords.txt', 'r')
+sf = stopwords_file.read()                #reading the stop words into a string
+stoplist = sf.split("\n")
+positive_count=0
+wordcount=0
+negative_count=0
+stopwords_count=0
+other_words_count=0
+value=0
+
+
+
+for i in masterlist:
+    wordcount=wordcount + 1
+    if i in positive_list and (i!='Trump' or i!='trump'):
+        positive_count+=1
+        value+=1
+    elif i in neglist:
+        negative_count+=1
+        value-=1
+    elif i in stoplist:
+        stopwords_count+=1
+    else:
+        othercount+=1
+print ("Total number of words are " + str(wordcount))
+print ("Total number of positive words are " + str(positive_count))
+print ("Total number of negative words are " + str(negative_count))
+print ("Total number of stop words are " + str(stopwords_count))
+print ("Total number of other words are " + str(othercount))
+
+pos_ratio=float(positive_count/(wordcount))
+print("The ratio of positive words is " +str(pos_ratio))
+
+neg_ratio=float(negative_count/(wordcount))
+print("The ratio of negative words is " +str(neg_ratio))
+
+stop_ratio=float(stopwords_count/(wordcount))
+print("The ratio of stop words is " +str(stop_ratio))
+
+others_ratio=float(othercount/(wordcount))
+print("The ratio of other words is " +str(others_ratio))
+
+print("The sum of all positive and negative words observed is: " +str(value))
+
+if positive_count > negative_count:
+  if pos_ratio>0.028:
+    print ("The sentiment is strongly positive")
+  else:
+    print("The ratio is weakly positive")
+    
+else:
+  if neg_ratio>0.028:
+    print ("The sentiment is strongly negative")
+  else:
+    print("The ratio is weakly negative")
+	
+posfile.close()
+negfile.close()
+stopfile.close()

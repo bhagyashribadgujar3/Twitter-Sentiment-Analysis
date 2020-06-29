@@ -1,0 +1,146 @@
+import string
+masterfile = open('Trump.txt', 'r') #opens the file and saves into masterfile
+mf = masterfile.read() #saves the masterfile data into a string
+masterfile.close()
+masterlist = mf.split(\" \") #splits the text data and saves in a list
+translator = str.maketrans(dict.fromkeys(string.punctuation))
+maketrans function is used to create a translated copy of the data without any punctuations. Used for data cleaning
+for i in masterlist:\n",
+    "    i.translate(translator)\n",
+    "without_punctuation = mf.translate(translator)
+new_masterlist = without_punctuation.split(\" \")
+posfile=open('positive.txt', 'r')\n",
+    "pf = posfile.read()                 #reading the positive words into a string\n",
+    "poslist = pf.split(\"\\n\")\n",
+    "negfile=open('negative.txt', 'r')\n",
+    "nf = negfile.read()                 #reading the negative words into a string\n",
+    "neglist = nf.split(\"\\n\")\n",
+    "stopfile=open('stopwords.txt', 'r')\n",
+    "sf = stopfile.read()                #reading the stop words into a string\n",
+    "stoplist = sf.split(\"\\n\")
+poscount=0\n",
+    "wordcount=0\n",
+    "negcount=0\n",
+    "stopcount=0\n",
+    "othercount=0\n",
+    "value=0
+Initialize the value of wordcount, poscount, negcount, stopcount, othercount and value to 0
+for i in new_masterlist:\n",
+    "    wordcount=wordcount + 1\n",
+    "    if i in poslist and (i!='Trump' or i!='trump'):\n",
+    "        poscount+=1\n",
+    "        value+=1\n",
+    "    elif i in neglist:\n",
+    "        negcount+=1\n",
+    "        value-=1\n",
+    "    elif i in stoplist:\n",
+    "        stopcount+=1\n",
+    "    else:\n",
+    "        othercount+=1
+Count the number of positive, negative, stopwords and other words
+print (\"The  total number of words are \" + str(wordcount))\n",
+    "print (\"The  total number of positive words are \" + str(poscount))\n",
+    "print (\"The  total number of negative words are \" + str(negcount))\n",
+    "print (\"The  total number of stop words are \" + str(stopcount))\n",
+    "print (\"The  total number of other words are \" + str(othercount))
+pos_ratio=float(poscount/(wordcount))\n",
+    "print(\"The ratio of positive words is \" +str(pos_ratio))\n",
+    "\n",
+    "neg_ratio=float(negcount/(wordcount))\n",
+    "print(\"The ratio of negative words is \" +str(neg_ratio))\n",
+    "\n",
+    "stop_ratio=float(stopcount/(wordcount))\n",
+    "print(\"The ratio of stop words is \" +str(stop_ratio))\n",
+    "\n",
+    "others_ratio=float(othercount/(wordcount))\n",
+    "print(\"The ratio of other words is \" +str(others_ratio))
+calculate ratios of positive,negative,stop and other words with respect to whole word count
+print(\"The sum of all positive and negative words observed is: \" +str(value))
+if poscount > negcount:\n",
+    "  if pos_ratio>0.028:\n",
+    "    print (\"The sentiment is strongly positive\")\n",
+    "  else:\n",
+    "    print(\"The ratio is weakly positive\")\n",
+    "    \n",
+    "else:\n",
+    "  if neg_ratio>0.028:\n",
+    "    print (\"The sentiment is strongly negative\")\n",
+    "  else:\n",
+    "    print(\"The ratio is weakly negative\")
+Determine the sentiment based on the ratios and an assumed threshold value
+posfile.close()\n",
+    "negfile.close()\n",
+    "stopfile.close()
+## Similarly I have used another word 'india' and collected the tweets. The results are as follows:
+import string
+masterfile1 = open('india.txt', 'r') #opens the file and saves into masterfile1
+mf1 = masterfile1.read() #saves the masterfile1 data into a string
+masterfile1.close()
+masterlist1 = mf1.split(\" \") #splits the text data and saves in a list
+translator = str.maketrans(dict.fromkeys(string.punctuation))
+for i in masterlist1:\n",
+    "    i.translate(translator)\n",
+    "without_punctuation1 = mf1.translate(translator)
+new_masterlist1 = without_punctuation1.split(\" \")
+posfile1=open('positive.txt', 'r')\n",
+    "pf1 = posfile1.read()                 #reading the positive words into a string\n",
+    "poslist1 = pf1.split(\"\\n\")\n",
+    "negfile1=open('negative.txt', 'r')\n",
+    "nf1 = negfile1.read()                 #reading the negative words into a string\n",
+    "neglist1 = nf1.split(\"\\n\")\n",
+    "stopfile1=open('stopwords.txt', 'r')\n",
+    "sf1 = stopfile1.read()                #reading the stop words into a string\n",
+    "stoplist1 = sf1.split(\"\\n\")
+poscount1=0\n",
+    "wordcount1=0\n",
+    "negcount1=0\n",
+    "stopcount1=0\n",
+    "othercount1=0\n",
+    "value1=0
+for i in new_masterlist1:\n",
+    "    wordcount1+= 1\n",
+    "    if i in poslist1:\n",
+    "        poscount1 += 1\n",
+    "        value1+=1\n",
+    "    elif i in neglist1:\n",
+    "        negcount1 += 1\n",
+    "        value1-=1\n",
+    "    elif i in stoplist1:\n",
+    "        stopcount1 +=1\n",
+    "    else:\n",
+    "        othercount1+=1
+print (\"The  total number of words are \" + str(wordcount1))\n",
+    "print (\"The  total number of positive words are \" + str(poscount1))\n",
+    "print (\"The  total number of negative words are \" + str(negcount1))\n",
+    "print (\"The  total number of stop words are \" + str(stopcount1))\n",
+    "print (\"The  total number of other words are \" + str(othercount1))
+pos_ratio1=float(poscount1/(wordcount1))\n",
+    "print(\"The ratio of positive words is \" +str(pos_ratio1))\n",
+    "\n",
+    "neg_ratio1=float(negcount1/(wordcount1))\n",
+    "print(\"The ratio of negative words is \" +str(neg_ratio1))\n",
+    "\n",
+    "stop_ratio1=float(stopcount1/(wordcount1))\n",
+    "print(\"The ratio of stop words is \" +str(stop_ratio1))\n",
+    "\n",
+    "others_ratio1=float(othercount1/(wordcount1))\n",
+    "print(\"The ratio of other words is \" +str(others_ratio1))
+print(\"The sum of all positive and negative words observed is: \" +str(value1))
+if poscount1 > negcount1:\n",
+    "  if pos_ratio1>0.028:\n",
+    "    print (\"The sentiment is strongly positive\")\n",
+    "  else:\n",
+    "    print(\"The ratio is weakly positive\")\n",
+    "    \n",
+    "else:\n",
+    "  if neg_ratio1>0.028:\n",
+    "    print (\"The sentiment is strongly negative\")\n",
+    "  else:\n",
+    "    print(\"The ratio is weakly negative\")
+posfile1.close()\n",
+    "negfile1.close()\n",
+    "stopfile1.close()
+## Alan's Comments:\n",
+    "* clean code with good comments. Nice work !\n",
+    "\n",
+    "received 10 out of 10\n

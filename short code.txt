@@ -1,0 +1,13 @@
+import string 
+masterfile = open('Trump.txt', 'r') #opens the file and saves into masterfile
+mf = masterfile.read() #saves the masterfile data into a string
+masterfile.close()
+#masterlist = mf.split(" ") #splits the text data and saves in a list
+#translator = str.maketrans(dict.fromkeys(string.punctuation))
+#for i in mf: 
+    #i.translate(translator) 
+#mf1 = mf.translate(translator)
+mf2=mf1.translate(str.maketrans('', '', string.punctuation))
+print(mf2)
+mf3=" ".join(filter(lambda x:x[0]!='x', mf2.split()))
+print(mf3)
